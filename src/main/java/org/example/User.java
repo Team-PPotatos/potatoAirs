@@ -1,6 +1,6 @@
 package org.example;
 
-public class Application {
+public class User {
     public static void main(String[] args) {
 
     }
