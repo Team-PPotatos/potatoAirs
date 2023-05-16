@@ -24,8 +24,8 @@
 
 - 회원 여부 체크는 userId와 accounts의 index값을 통해 하도록 한다.
 
-- 항공권이 예매되면 해당 좌석의 자리를 0으로 변경하고 해당 Air의 index와, 좌석의 index를 입력받는다. 다음으로, UserService에서 User의 
-예매내역 객체에 집어넣는 함수를 호출한다.
+- 항공권이 예매되면 해당 좌석의 자리를 0으로 변경하고 해당 Air의 index와, 좌석의 index를 입력받는다. 다음으로, UserService에서 
+User의 예매내역 객체에 집어넣는 함수를 호출한다.
 ```
 
 <br/>
