@@ -42,6 +42,9 @@
 <br/>
 
 ## 🐬커뮤니케이션 다이어그램
+<img src = "https://github.com/Team-PPotatos/potatoAirs/assets/109736890/fa2dad0f-a4ee-42b1-8e70-430935e20fea" width="350" height="300"/>
+<img src = "https://github.com/Team-PPotatos/potatoAirs/assets/109736890/541678ee-faf5-4de3-99b1-814bdcab6493" width="350" height="300"/> 
+
 
 ---
 
