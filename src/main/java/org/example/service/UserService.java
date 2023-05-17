@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public void showFlight() {
-        System.out.print("회원이신가요? (예 : 1, 아니오 : 2) : ");
+        System.out.println("회원이신가요? \n 예 : 1 아니오 : 2");
         int ans = sc.nextInt();
         if (ans == 2) {
             System.out.println("회원가입을 먼저 진행해주세요.");
@@ -91,18 +91,18 @@ public class UserService {
                         System.out.print(j.toString());
                     }
                 }
-                System.out.print("\n 몇 번째 항공권을 예매하시겠습니까? : ");
-                int planeNum = sc.nextInt();    // 1번부터
+                System.out.println("\n 몇번째 항공권을 예매하시겠습니까? : ");
+                int planeNum = sc.nextInt();
 
-                for (int i : airline.getSeats()[planeNum - 1]) {
+                for (int i : airline.getSeats()[planeNum + 1]) {
                     System.out.print(" " + i + " ");
                 }
-                System.out.print("\n 몇 번째 좌석을 예매하시겠습니까? : ");
+                System.out.println("\n 몇번째 좌석을 예매하시겠습니까?");
                 int seatNum = sc.nextInt();
                 if (airline.getSeats()[planeNum - 1][seatNum - 1] == 0) {
                     System.out.println("이미 예약된 좌석입니다. 다른 좌석을 이용해주세요.");
                 } else {
-                    System.out.print("비밀번호를 입력해주세요. : ");
+                    System.out.println("비밀번호를 입력해주세요. : ");
                     sc.nextLine();
                     String pass = sc.nextLine();
                     int userNum = getIdx(pass);
@@ -110,7 +110,6 @@ public class UserService {
                         System.out.println("비밀번호를 잘못 입력 하셨습니다.");
                         break;
                     }
-                    airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
                     flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
                     flight_idx++;
                     System.out.println(getIdx(pass) + "번 회원 님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석의 예약이 완료 되었습니다.");
@@ -123,7 +122,7 @@ public class UserService {
 
     public void delFlight() {
         while (true) {
-            System.out.print("비밀번호를 입력해주세요. : ");
+            System.out.println("비밀번호를 입력해주세요. : ");
             String pass = sc.nextLine();
             int userNum = getIdx(pass);
             if(!userInfo[userNum].isLogin()){
@@ -139,9 +138,7 @@ public class UserService {
                     break;
                 }
                 int index = findFlightInfo(userNum);
-                int planeNum = flightInfo[index].getPlaneNum();
-                int seatNum = flightInfo[index].getSeatNum();
-                System.out.println(planeNum + "번 비행기의" + seatNum + "번 좌석");
+                System.out.println(flightInfo[index].getPlaneNum() + "번 비행기의" + flightInfo[index].getSeatNum() + "번 좌석");
 
                 System.out.println("해당 예약을 취소합니까? : \n  예: 1 아니오: 0");
                 int ans = sc.nextInt();
@@ -150,7 +147,6 @@ public class UserService {
                     System.out.println("취소 하지 않습니다.");
                     break;
                 } else{
-                    airline.setSeats(planeNum - 1, seatNum - 1, 1);     // 예약을 취소해서 다시 1으로 바꾸는 함수
                     flightInfo[index] = null;
                     System.out.println("취소를 완료 했습니다.");
                     break;
