@@ -36,8 +36,8 @@ public class Airline{
         return seats;
     }
 
-    public void setSeats(int[][] seats){
-        this.seats = seats;
+    public void setSeats(int planeNum, int seatNum, int reserve){   // 항공편, 좌석 번호를 받아 1 또는 0 set
+        this.seats[planeNum][seatNum] = reserve;
     }
     public String[][] getPlanes(){
         return planes;
@@ -55,9 +55,7 @@ public class Airline{
         this.planeNum = planeNum;
     }
 
-    public int getSeatNum() {
-        return seatNum;
-    }
+    public int getSeatNum() { return seatNum; }
 
     public void setSeatNum(int seatNum) {
         this.seatNum = seatNum;
