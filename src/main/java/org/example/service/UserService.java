@@ -22,7 +22,7 @@ public class UserService {
     public boolean isMember(String id, String pwd) {
 
         for (int i = 0; i < idx; i++) {
-            System.out.println(id + pwd);
+            // System.out.println(id + pwd);
             if (id.equals(userInfo[i].getId()) && pwd.equals(userInfo[i].getPwd())) {
                 check = true;
                 if (userInfo[i].isLogin()) {
@@ -58,7 +58,7 @@ public class UserService {
 
         userInfo[idx] = new User(id, pwd, name, 500000);
         idx++;
-        System.out.println(idx);
+        // System.out.println(idx);
         System.out.println("회원 가입을 완료 했습니다.");
     }
 
@@ -85,36 +85,48 @@ public class UserService {
             System.out.println("회원가입을 먼저 진행해주세요.");
         } else {
             while (true) {
+                System.out.println();
+                System.out.println("====================== 항공편 목록 ====================== \n");
                 for (String[] i : airline.getPlanes()) {
-                    System.out.println("\n");
+                    // System.out.println("\n");
                     for (String j : i) {
                         System.out.print(j.toString());
                     }
+                    System.out.println("\n");
                 }
-                System.out.print("\n 몇 번째 항공권을 예매하시겠습니까? : ");
-                int planeNum = sc.nextInt();    // 1번부터
-
+                System.out.println("========================================================");
+                System.out.print("\n 몇번째 항공권을 예매하시겠습니까? : ");
+                int planeNum = sc.nextInt();
+                System.out.println("\n ============================");
                 for (int i : airline.getSeats()[planeNum - 1]) {
                     System.out.print(" " + i + " ");
                 }
-                System.out.print("\n 몇 번째 좌석을 예매하시겠습니까? : ");
+                System.out.println(" \n ============================");
+                System.out.print("\n 몇번째 좌석을 예매하시겠습니까? : ");
+
                 int seatNum = sc.nextInt();
+                sc.nextLine(); // 버퍼 비우는 역할
                 if (airline.getSeats()[planeNum - 1][seatNum - 1] == 0) {
                     System.out.println("이미 예약된 좌석입니다. 다른 좌석을 이용해주세요.");
                 } else {
-                    System.out.print("비밀번호를 입력해주세요. : ");
-                    sc.nextLine();
-                    String pass = sc.nextLine();
-                    int userNum = getIdx(pass);
-                    if (userNum == 31) {
-                        System.out.println("비밀번호를 잘못 입력 하셨습니다.");
-                        break;
+                    boolean checkPassword = false;
+                    while (!checkPassword) {
+                        System.out.print("비밀번호를 입력해주세요: ");
+                        // sc.nextLine();
+                        String pass = sc.nextLine();
+                        int userNum = getIdx(pass);
+
+                        if (userNum == 31) {
+                            System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력하세요.");
+                            continue; // 비밀번호 재입력을 위해 while 루프의 처음으로 돌아감
+                        } else {
+                            airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
+                            flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
+                            flight_idx++;
+                            System.out.println(userNum + "번 회원님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석 예약이 완료되었습니다.");
+                            checkPassword = true;
+                        }
                     }
-                    airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
-                    flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
-                    flight_idx++;
-                    System.out.println(getIdx(pass) + "번 회원 님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석의 예약이 완료 되었습니다.");
-                    break;
                 }
             }
         }
