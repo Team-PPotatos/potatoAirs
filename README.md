@@ -60,6 +60,12 @@
 <br/>
 
 ---
+## 🌈 프로그램 시연 영상
+https://youtu.be/AUc4TlBPSaQ
+
+<br/>
+
+---
 
 ## ✅ 커밋 컨벤션
 
