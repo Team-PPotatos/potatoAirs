@@ -79,12 +79,13 @@ public class UserService {
     }
 
     public void showFlight() {
-        System.out.println("회원이신가요? \n 예 : 1 아니오 : 2");
+        System.out.print("회원이신가요? (예 : 1, 아니오 : 2) : ");
         int ans = sc.nextInt();
         if (ans == 2) {
             System.out.println("회원가입을 먼저 진행해주세요.");
         } else {
             while (true) {
+                System.out.println();
                 System.out.println("====================== 항공편 목록 ====================== \n");
                 for (String[] i : airline.getPlanes()) {
                     // System.out.println("\n");
@@ -102,6 +103,7 @@ public class UserService {
                 }
                 System.out.println(" \n ============================");
                 System.out.print("\n 몇번째 좌석을 예매하시겠습니까? : ");
+
                 int seatNum = sc.nextInt();
                 sc.nextLine(); // 버퍼 비우는 역할
                 if (airline.getSeats()[planeNum - 1][seatNum - 1] == 0) {
@@ -118,6 +120,7 @@ public class UserService {
                             System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력하세요.");
                             continue; // 비밀번호 재입력을 위해 while 루프의 처음으로 돌아감
                         } else {
+                            airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
                             flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
                             flight_idx++;
                             System.out.println(userNum + "번 회원님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석 예약이 완료되었습니다.");
@@ -132,7 +135,7 @@ public class UserService {
 
     public void delFlight() {
         while (true) {
-            System.out.println("비밀번호를 입력해주세요. : ");
+            System.out.print("비밀번호를 입력해주세요. : ");
             String pass = sc.nextLine();
             int userNum = getIdx(pass);
             if(!userInfo[userNum].isLogin()){
@@ -148,7 +151,9 @@ public class UserService {
                     break;
                 }
                 int index = findFlightInfo(userNum);
-                System.out.println(flightInfo[index].getPlaneNum() + "번 비행기의" + flightInfo[index].getSeatNum() + "번 좌석");
+                int planeNum = flightInfo[index].getPlaneNum();
+                int seatNum = flightInfo[index].getSeatNum();
+                System.out.println(planeNum + "번 비행기의" + seatNum + "번 좌석");
 
                 System.out.println("해당 예약을 취소합니까? : \n  예: 1 아니오: 0");
                 int ans = sc.nextInt();
@@ -157,6 +162,7 @@ public class UserService {
                     System.out.println("취소 하지 않습니다.");
                     break;
                 } else{
+                    airline.setSeats(planeNum - 1, seatNum - 1, 1);     // 예약을 취소해서 다시 1으로 바꾸는 함수
                     flightInfo[index] = null;
                     System.out.println("취소를 완료 했습니다.");
                     break;
@@ -196,22 +202,22 @@ public class UserService {
     }
 
     public void newPassword() {
-            System.out.print("아이디를 입력해주세요. : ");
-            String id = sc.nextLine();
-            System.out.print("비밀번호를 입력해주세요. : ");
-            String pass = sc.nextLine();
-            int userNum = getIdx(pass);
-            boolean checkPw = userInfo[userNum].getPwd().equals(pass);
-            boolean checkId = userInfo[userNum].getId().equals(id);
-            if (!checkPw || !checkId ) {
-                System.out.println("아이디 또는 비밀번호를 잘못 입력 하셨습니다.");
-            } else {
-                System.out.print("변경할 비밀번호를 입력해주세요 : ");
-                String newPassword = sc.nextLine();
+        System.out.print("아이디를 입력해주세요. : ");
+        String id = sc.nextLine();
+        System.out.print("비밀번호를 입력해주세요. : ");
+        String pass = sc.nextLine();
+        int userNum = getIdx(pass);
+        boolean checkPw = userInfo[userNum].getPwd().equals(pass);
+        boolean checkId = userInfo[userNum].getId().equals(id);
+        if (!checkPw || !checkId ) {
+            System.out.println("아이디 또는 비밀번호를 잘못 입력 하셨습니다.");
+        } else {
+            System.out.print("변경할 비밀번호를 입력해주세요 : ");
+            String newPassword = sc.nextLine();
 
-                userInfo[userNum].setPwd(newPassword);
-                System.out.println("비밀번호를 " + newPassword + "로 변경했습니다.");
-            }
-            }
-
+            userInfo[userNum].setPwd(newPassword);
+            System.out.println("비밀번호를 " + newPassword + "로 변경했습니다.");
+        }
     }
+
+}
