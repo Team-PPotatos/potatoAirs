@@ -44,11 +44,12 @@ public class Application {
                 case 6:
                     userService.newPassword();
                     break;
+
                 case 7:
                     System.out.print("정말로 시스템을 종료하시겠습니까? (예:y / 아니오:n) : ");
                     String yesOrNo = sc.next();
                     if (yesOrNo.equals("y") || yesOrNo.equals("Y")) {
-                        System.out.println("Potato-Air 예매 프로그램을 종료합니다. 저희 Potato-Air를 이용해주셔서 갑사합니다.");
+                        System.out.println("Potato-Air 예매 프로그램을 종료합니다. 저희 Potato-Air를 이용해주셔서 감사합니다.");
                         return;
                     }
                     break;
