@@ -24,7 +24,7 @@ public class UserService {
     int LoginCorrectPersonNum;     // isMember 에서 찾은 사람의 번호(i) 저장
     ArrayList<Integer> canceledNum = new ArrayList<>(); // 예약 삭제 번호 리스트 (참조 막는 용)
 
-    public boolean isMember(String id, String pwd) {
+    public boolean isMember(String id, String pwd) {    // 로그인 할 때
         for (int i = 0; i < idx; i++) {
             // System.out.println(id + pwd);
             if (id.equals(userInfo[i].getId()) && pwd.equals(userInfo[i].getPwd())) {
@@ -45,15 +45,37 @@ public class UserService {
         return 31;
     }
 
+    public boolean containsBlank(String str) {   // 공백 포함 시 false, 없다면 true
+        if (str.isEmpty() || str.contains(" ")) {               // 같은 아이디일 시
+            System.out.println("공백은 포함될 수 없습니다!");
+            return true;
+        }
+        return false;
+    }
+
 
     public void joinUser() {
+        String id;
+        String pwd;
+        String name;
+
         System.out.println("회원가입을 진행합니다.");
-        System.out.print("아이디를 입력해주세요. : ");
-        String id = sc.nextLine();
-        System.out.print("비밀번호를 입력해주세요. : ");
-        String pwd = sc.nextLine();
-        System.out.print("이름을 입력해주세요. : ");
-        String name = sc.nextLine();
+
+        while (true) {
+            System.out.print("아이디를 입력해주세요. : ");
+            id = sc.nextLine();
+            if (containsBlank(id)) continue; // 공백
+
+            System.out.print("비밀번호를 입력해주세요. : ");
+            pwd = sc.nextLine();
+            if (containsBlank(pwd)) continue;
+
+            System.out.print("이름을 입력해주세요. : ");
+            name = sc.nextLine();
+            if (containsBlank(name)) continue;
+
+            break;
+        }
 
         userInfo[idx] = new User(id, pwd, name, 500000);
         idx++;
@@ -87,10 +109,8 @@ public class UserService {
             pwd = sc.nextLine();
         }
 
-        if (isMember(id, pwd)) {
-            userInfo[LoginCorrectPersonNum].setLogin(true);
-            System.out.println("로그인에 성공했습니다.");
-        }
+        userInfo[LoginCorrectPersonNum].setLogin(true); // while문을 빠져나왔다 == 로그인 정보가 있다.
+        System.out.println("로그인에 성공했습니다.");
     }
 
     public void showFlight() {
@@ -248,5 +268,4 @@ public class UserService {
             System.out.println("비밀번호를 " + newPassword + "로 변경했습니다.");
         }
     }
-
 }
