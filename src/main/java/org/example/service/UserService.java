@@ -126,7 +126,7 @@ public class UserService {
             return;
         }
 
-        while (true) {
+
             System.out.println();
             System.out.println("====================== 항공편 목록 ====================== \n");
             for (String[] i : airline.getPlanes()) {
@@ -150,15 +150,17 @@ public class UserService {
             sc.nextLine(); // 버퍼 비우는 역할
             if (airline.getSeats()[planeNum - 1][seatNum - 1] == 0) {
                 System.out.println("이미 예약된 좌석입니다. 다른 좌석을 이용해주세요.");
-                break;
+                return;
             }
+
+
             int userNum = LoginCorrectPersonNum;
             airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
             flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
             flight_idx++;
             System.out.println(userNum + "번 회원님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석 예약이 완료되었습니다.");
-            break;
-        }
+
+
     }
 
 
