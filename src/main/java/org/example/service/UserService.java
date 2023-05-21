@@ -3,7 +3,6 @@ package org.example.service;
 import org.example.domain.Airline;
 import org.example.domain.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,16 +19,17 @@ public class UserService {
     int idx = 0;
     int flight_idx = 0;
 
-    boolean check = false;
     int LoginCorrectPersonNum;     // isMember 에서 찾은 사람의 번호(i) 저장
-    ArrayList<Integer> canceledNum = new ArrayList<>(); // 예약 삭제 번호 리스트 (참조 막는 용)
+
+    ArrayList<Integer> canceledNum = new ArrayList<>(); // 예약 삭제 번호 리스트 (NULL POINTER 참조 막는 용)
 
     public boolean isMember(String id, String pwd) {    // 로그인 할 때
+        boolean check = false;                          // 입력한 로그인 정보가 회원 DB에 존재하는가?
         for (int i = 0; i < idx; i++) {
             // System.out.println(id + pwd);
             if (id.equals(userInfo[i].getId()) && pwd.equals(userInfo[i].getPwd())) {
                 LoginCorrectPersonNum = i;
-                check = true;
+                check = true;                           // 로그인 정보를 찾음
                 break;
             }
         }
