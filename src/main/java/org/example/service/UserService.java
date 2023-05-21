@@ -53,6 +53,17 @@ public class UserService {
         return false;
     }
 
+    public boolean exsitingId(String id) {          // 입력한 id 정보가 회원 DB에 이미 존재하는가?
+        for (int i = 0; i < idx; i++) {
+            // System.out.println(id + pwd);
+            if (id.equals(userInfo[i].getId())) {   // 로그인 정보를 찾음
+                System.out.println("id가 이미 존재합니다!");
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void joinUser() {
         String id;
@@ -64,7 +75,9 @@ public class UserService {
         while (true) {
             System.out.print("아이디를 입력해주세요. : ");
             id = sc.nextLine();
-            if (containsBlank(id)) continue; // 공백
+
+            /* 공백 또는 id가 이미 존재 */
+            if (containsBlank(id) || exsitingId(id)) continue;
 
             System.out.print("비밀번호를 입력해주세요. : ");
             pwd = sc.nextLine();
