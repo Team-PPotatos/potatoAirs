@@ -167,12 +167,13 @@ public class UserService {
             }
 
 
-            int userNum = LoginCorrectPersonNum;
+            String userId = userInfo[LoginCorrectPersonNum].getId();
             airline.setSeats(planeNum - 1, seatNum - 1, 0);     // 예약해서 0으로 바꾸는 함수
-            flightInfo[flight_idx] = new Airline(planeNum, seatNum, userNum);
-            flight_idx++;
-            System.out.println(userNum + "번 회원님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석 예약이 완료되었습니다.");
 
+            /* 회원 가입때의 id를 중복 불가능으로 만들었기 때문에 id로 flightInfo를 조회할 수 있다. */
+            flightInfo[flight_idx] = new Airline(planeNum, seatNum, userId);
+            flight_idx++;
+            System.out.println(userId + " 회원님의 " + planeNum + "번째 비행기의 " + seatNum + "번째 좌석 예약이 완료되었습니다.");
 
     }
 
@@ -224,17 +225,18 @@ public class UserService {
 
 
 
-    public List<Integer> findFlightInfo(int userNum) {    // 여러 개일 수 있다.
-        List<Integer> flightInfoArr = new ArrayList<>();
+    public List<Airline> findFlightInfo(String id) {    // 여러 개일 수 있다.
+        List<Airline> flightInfoArr = new ArrayList<>();
         for (int i = 0; i < flight_idx; i++) {
 //            System.out.println(i);
 
-            if (canceledNum.contains(i)) {        // 삭제한 인덱스
+            if (canceledNum.contains(i)) {        // 삭제한 인덱스는 pass
                 continue;
             }
 
-            if (userNum == flightInfo[i].getUserNum()) {
-                flightInfoArr.add(i);
+
+            if (id.equals(flightInfo[i].getUserId())) {    // 순회하다 해당 id로 예약한 항공 예약이 보일 시
+                flightInfoArr.add(flightInfo[i]);          // 해당 flightInfo 객체를 array에 추가
             }
         }
         return flightInfoArr;
@@ -246,8 +248,8 @@ public class UserService {
             return;
         }
 
-        for(int i : findFlightInfo(LoginCorrectPersonNum)) {
-            System.out.println(flightInfo[i].getPlaneNum() + "번 비행기의 " + flightInfo[i].getSeatNum() + "번 좌석");
+        for(Airline air : findFlightInfo(userInfo[LoginCorrectPersonNum].getId())) {  // 해당 id의 예약 내역의 리스트
+            System.out.println(air.getPlaneNum() + "번 비행기의 " + air.getSeatNum() + "번 좌석");
         }
     }
 

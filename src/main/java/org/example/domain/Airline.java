@@ -7,7 +7,7 @@ public class Airline{
     private int planeNum;
     private int seatNum;
 
-    private int userNum;
+    private String userId;
 
     String[] plane1 = {" 아시아나 항공 ", " 12:30분 출발 ", " 2:40분 도착 ", "인천(ICN)  =>  삿포로(CTS)"};
     String[] plane2 = {" 대한 항공 ", " 19:30분 출발 ", " 22:10분 도착 ", "인천(ICN)  =>  하노이(HAN)"};
@@ -26,11 +26,15 @@ public class Airline{
     private String[][] planes = {plane1, plane2, plane3, plane4, plane5};
 
     public Airline(){}
-    public Airline(int planeNum, int seatNum, int userNum){
+    public Airline(int planeNum, int seatNum, String userId) {
         this.planeNum = planeNum;
         this.seatNum = seatNum;
-        this.userNum = userNum;
+        this.userId = userId;
     }
+
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
 
     public int[][] getSeats(){
         return seats;
@@ -57,15 +61,5 @@ public class Airline{
 
     public int getSeatNum() { return seatNum; }
 
-    public void setSeatNum(int seatNum) {
-        this.seatNum = seatNum;
-    }
-
-    public int getUserNum() {
-        return userNum;
-    }
-
-    public void setUserNum(int userNum) {
-        this.userNum = userNum;
-    }
+    public void setSeatNum(int seatNum) { this.seatNum = seatNum;}
 }
