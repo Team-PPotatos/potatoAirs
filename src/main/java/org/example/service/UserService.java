@@ -226,20 +226,24 @@ public class UserService {
 
         //canceledNum.add(cancelNum);     // canceledNum 삭제
 
+        /* 현재 로그인 되어있는 user의 예매 내역 list */
+        List<Airline> loginUserFlight = findFlightInfo(loginUser.getId());
+
         /* ArrayList를 index로 접근 */
-        int planeNum = flightInfo.get(cancelNum).getPlaneNum() - 1;
-        int seatNum = flightInfo.get(cancelNum).getSeatNum() - 1;
+        int planeNum = loginUserFlight.get(cancelNum).getPlaneNum() - 1;
+        int seatNum = loginUserFlight.get(cancelNum).getSeatNum() - 1;
 
 //        System.out.println(planeNum + " " + seatNum);
         airline.setSeats(planeNum, seatNum, 1);     // 예약을 취소해서 다시 1으로 바꾸는 함수
-        flightInfo.remove(flightInfo.get(cancelNum));       // 예약 내역 삭제
+
+        flightInfo.remove(loginUserFlight.get(cancelNum));       // 해당 예약 내역 삭제
         System.out.println("취소를 완료 했습니다.");
     }
 
 
 
 
-    public List<Airline> findFlightInfo(String id) {    // 여러 개일 수 있다.
+    public List<Airline> findFlightInfo(String id) {    // 해당 id의 예약 내역을 List로 return해주는 함수
         List<Airline> flightInfoArr = new ArrayList<>();
 
         Iterator<Airline> flightiterator = flightInfo.iterator(); // flightInfo 순회
